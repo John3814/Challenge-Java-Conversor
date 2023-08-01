@@ -11,17 +11,25 @@ public class Principal {
 
 	public static void main(String[] args) {
 		
-		boolean bandera = false;
-		
+		boolean bandera = true;
 		do {
-			
-			bandera = leerOpcionMenuPrincipal();
-			
-		} while (!bandera);
-		
+			leerOpcionMenuPrincipal();
+			bandera = confirmarContinuacion();
+		} while (bandera);
+		JOptionPane.showMessageDialog(null, "Programa terminado", "Message", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public static boolean leerOpcionMenuPrincipal() {
+	
+	private static boolean confirmarContinuacion() {
+		Integer opcion = JOptionPane.showConfirmDialog(null, "¿Desea continuar?");
+		if (opcion == 0) {
+			return true;
+		} 
+		return false;
+	}
+		
+
+	public static void leerOpcionMenuPrincipal() {
 		Object[] opciones = {"Conversor de Moneda", "Conversor de Temperatura"};
 		
 		Object seleccion = JOptionPane.showInputDialog(null, "Seleccione una opción de conversión", 
@@ -31,19 +39,15 @@ public class Principal {
 				case "Conversor de Moneda": 
 					Double valor = leerValor();
 					if(valor != null) {
-						ConversorMonedas.menuOpcionesDeMonedas(valor);;
+						ConversorMonedas.menuOpcionesDeMonedas(valor);
 					}
 					break;
 				case "Conversor de Temperatura":
 					break;
 			}
-			return false;
-		}else {
-			return true;
 		}
 	}
-
-
+	
 
 	private static Double leerValor() {
 		String entrada = JOptionPane.showInputDialog(null, 
