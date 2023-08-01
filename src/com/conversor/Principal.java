@@ -5,28 +5,44 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
-public class Conversor {
+import com.conversor.monedas.ConversorMonedas;
+
+public class Principal {
 
 	public static void main(String[] args) {
 		
 		boolean bandera = false;
 		
 		do {
-			String opcion = menuPrincipal();
-			switch (opcion) {
-				case "Conversor de Moneda": 
-					Double valor = leerValor();
-					break;
-				case "Conversor de Temperatura":
-					break;
-				case "Salir":
-					bandera = true;
-					break;
-			}
+			
+			bandera = leerOpcionMenuPrincipal();
+			
 		} while (!bandera);
 		
 	}
 	
+	public static boolean leerOpcionMenuPrincipal() {
+		Object[] opciones = {"Conversor de Moneda", "Conversor de Temperatura"};
+		
+		Object seleccion = JOptionPane.showInputDialog(null, "Seleccione una opción de conversión", 
+				"Menu", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+		if (seleccion != null){		
+			switch (seleccion.toString()) {
+				case "Conversor de Moneda": 
+					Double valor = leerValor();
+					if(valor != null) {
+						ConversorMonedas.menuOpcionesDeMonedas(valor);;
+					}
+					break;
+				case "Conversor de Temperatura":
+					break;
+			}
+			return false;
+		}else {
+			return true;
+		}
+	}
+
 
 
 	private static Double leerValor() {
@@ -55,15 +71,6 @@ public class Conversor {
 	}
 
 	
-	public static String menuPrincipal() {
-		Object[] opciones = {"Conversor de Moneda", "Conversor de Temperatura"};
-		
-		Object seleccion = JOptionPane.showInputDialog(null, "Seleccione una opción de conversión", 
-				"Menu", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
-		if(seleccion != null){		
-			return seleccion.toString();
-		}
-		return "Salir";
-	}
+	
 
 }
