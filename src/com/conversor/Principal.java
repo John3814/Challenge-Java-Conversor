@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 import com.conversor.monedas.ConversorMonedas;
+import com.conversor.temperatura.ConversorTemperatura;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		
 		boolean bandera = true;
 		do {
 			leerOpcionMenuPrincipal();
@@ -37,21 +37,25 @@ public class Principal {
 		if (seleccion != null){		
 			switch (seleccion.toString()) {
 				case "Conversor de Moneda": 
-					Double valor = leerValor();
-					if(valor != null) {
-						ConversorMonedas.menuOpcionesDeMonedas(valor);
+					Double cantidad = leerValor("Ingresa la cantidad de dinero que deseas convertir:");
+					if(cantidad != null) {
+						ConversorMonedas.menuOpcionesDeMonedas(cantidad);
 					}
 					break;
 				case "Conversor de Temperatura":
+					Double valor = leerValor("");
+					if(valor != null) {
+						ConversorTemperatura.menuOpcionesDeTemperaturas(valor);
+					}
 					break;
 			}
 		}
 	}
 	
 
-	private static Double leerValor() {
+	private static Double leerValor(String mensaje) {
 		String entrada = JOptionPane.showInputDialog(null, 
-				"Ingresa la cantidad de dinero que deseas convertir:", "Input", JOptionPane.QUESTION_MESSAGE);
+				mensaje, "Input", JOptionPane.QUESTION_MESSAGE);
 		if(entrada != null) {
 			entrada = entrada.replace(".", "");
 			entrada = entrada.replace(",", ".");
@@ -60,7 +64,7 @@ public class Principal {
 			}else {
 				JOptionPane.showMessageDialog(null, "Valor no válido",
 						"Error", JOptionPane.INFORMATION_MESSAGE);
-				return leerValor();
+				return leerValor(mensaje);
 			}
 		}
 		return null;
