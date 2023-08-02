@@ -13,23 +13,23 @@ public class Principal {
 	public static void main(String[] args) {
 		boolean bandera = true;
 		do {
-			leerOpcionMenuPrincipal();
-			bandera = confirmarContinuacion();
+			bandera = leerOpcionMenuPrincipal();
+			if (bandera == false) bandera = confirmarContinuacion();
 		} while (bandera);
 		JOptionPane.showMessageDialog(null, "Programa terminado", "Message", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	
 	private static boolean confirmarContinuacion() {
-		Integer opcion = JOptionPane.showConfirmDialog(null, "¿Desea continuar?");
-		if (opcion == 0) {
+		Integer opcion = JOptionPane.showConfirmDialog(null, "¿Desea cerrar el programa?");
+		if (opcion != 0) {
 			return true;
 		} 
 		return false;
 	}
 		
 
-	public static void leerOpcionMenuPrincipal() {
+	public static boolean leerOpcionMenuPrincipal() {
 		Object[] opciones = {"Conversor de Moneda", "Conversor de Temperatura"};
 		
 		Object seleccion = JOptionPane.showInputDialog(null, "Seleccione una opción de conversión", 
@@ -49,7 +49,9 @@ public class Principal {
 					}
 					break;
 			}
+			return true;
 		}
+		return false;
 	}
 	
 
